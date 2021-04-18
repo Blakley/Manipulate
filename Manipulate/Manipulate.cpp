@@ -9,6 +9,38 @@ using namespace std;
 typedef const wchar_t* str;
 
 /*
+ * Winmine Game class
+ */
+class Winmine
+{
+	public:
+		Winmine();
+		~Winmine();
+		void ChangeTime();
+		void GetTime();
+
+	private:
+};
+
+Winmine::Winmine()
+{
+}
+
+Winmine::~Winmine()
+{
+}
+
+void Winmine::ChangeTime() 
+{
+}
+
+void Winmine::GetTime()
+{
+}
+
+
+
+/*
  * Finds the process id of your process
  * Return The PID of the process
  */
@@ -66,6 +98,23 @@ uintptr_t GetBase(DWORD pid, str process_name)
 
 	CloseHandle(process_snapshot);
 	return base_address;
+}
+
+
+/*
+ * Gets the last address for the supplied pointer
+ * Return The last address of a multi-level pointer
+ */
+uintptr_t GetLastAddress(HANDLE process_handle, uintptr_t ptr, std::vector<unsigned int> address_offsets)
+{
+	uintptr_t address = ptr;
+	for (unsigned int i = 0; i < address_offsets.size(); ++i) {
+		// Iterate through our offsets, adding each to our final address.
+		ReadProcessMemory(process_handle, (BYTE*)address, &address, sizeof(address), 0);
+		address += address_offsets[i];
+	}
+
+	return address;
 }
 
 /*
