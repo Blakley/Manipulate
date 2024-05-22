@@ -1,4 +1,4 @@
-# Manipulate
+# MemInspector
 
 A template for accessing and changing address values stored in windows applications. 
 Uses the windows memoryapi to read and write to processes. 
