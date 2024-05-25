@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\Blakley\Desktop\MemInspect\x64\Debug\MemInspect.exe</FullPath>
+      <FullPath>C:\Users\Blakley\Desktop\MemInspector\src\MemInspect\x64\Debug\MemInspect.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

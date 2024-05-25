@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Blakley\\Desktop\\MemInspect\\",
+  "WorkspaceRootPath": "C:\\Users\\Blakley\\Desktop\\MemInspector\\src\\MemInspect\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{47BDC640-B4E4-4621-BEB1-916FEFF7D834}|MemInspect.vcxproj|C:\\Users\\Blakley\\Desktop\\MemInspect\\MemInspect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{47BDC640-B4E4-4621-BEB1-916FEFF7D834}|MemInspect.vcxproj|C:\\Users\\Blakley\\Desktop\\MemInspector\\src\\MemInspect\\MemInspect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{47BDC640-B4E4-4621-BEB1-916FEFF7D834}|MemInspect.vcxproj|solutionrelative:MemInspect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -20,11 +20,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "MemInspect.cpp",
-              "DocumentMoniker": "C:\\Users\\Blakley\\Desktop\\MemInspect\\MemInspect.cpp",
+              "DocumentMoniker": "C:\\Users\\Blakley\\Desktop\\MemInspector\\src\\MemInspect\\MemInspect.cpp",
               "RelativeDocumentMoniker": "MemInspect.cpp",
-              "ToolTip": "C:\\Users\\Blakley\\Desktop\\MemInspect\\MemInspect.cpp",
+              "ToolTip": "C:\\Users\\Blakley\\Desktop\\MemInspector\\src\\MemInspect\\MemInspect.cpp",
               "RelativeToolTip": "MemInspect.cpp",
-              "ViewState": "AQIAAKEAAAAAAAAAAAAAAM8AAAAmAAAA",
+              "ViewState": "AQIAAJQAAAAAAAAAAAAAwKMAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-05-24T21:13:57.909Z",
               "EditorCaption": ""

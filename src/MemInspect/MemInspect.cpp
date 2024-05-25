@@ -9,14 +9,10 @@ void notes();
 void menu();
 void injectProcess();
 void modifyProcess();
-
-// ESC key handler function & thread
-DWORD WINAPI monitorESC(LPVOID lpParam);
-HANDLE escEvent; 
+void monitorESC(HANDLE& threadHandle);
 
 // Menu threads
 HANDLE menuThread[2];
-
 
 void notes() {
 	/*
@@ -78,17 +74,15 @@ void modifyProcess() {
 	system("cls");
 	std::cout << "Modifying process. Press ESC to return to menu..." << std::endl;
 
-	escEvent = CreateEvent(NULL, TRUE, FALSE, NULL); 
-	HANDLE escThread = CreateThread(NULL, 0, monitorESC, NULL, 0, NULL);
+	HANDLE escThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)monitorESC, &menuThread[1], 0, NULL);
 
 	// Simulate some processing work
-	while (WaitForSingleObject(escEvent, 100) == WAIT_TIMEOUT) {
-		// Simulating work by sleeping
+	while (true) {
+		Sleep(100); 
 	}
 
 	WaitForSingleObject(escThread, INFINITE);
 	CloseHandle(escThread);
-	CloseHandle(escEvent);
 }
 
 
@@ -102,17 +96,15 @@ void injectProcess() {
 	system("cls");
 	std::cout << "Injecting process. Press ESC to return to menu..." << std::endl;
 
-	escEvent = CreateEvent(NULL, TRUE, FALSE, NULL); 
-	HANDLE escThread = CreateThread(NULL, 0, monitorESC, NULL, 0, NULL);
+	HANDLE escThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)monitorESC, &menuThread[0], 0, NULL);
 
 	// Simulate some processing work
-	while (WaitForSingleObject(escEvent, 100) == WAIT_TIMEOUT) {
-		// Simulating work by sleeping
+	while (true) {
+		Sleep(100);
 	}
 
 	WaitForSingleObject(escThread, INFINITE);
 	CloseHandle(escThread);
-	CloseHandle(escEvent);
 }
 
 
@@ -122,13 +114,13 @@ void injectProcess() {
  *
  * --------------------------------------------------
 */
-DWORD WINAPI monitorESC(LPVOID lpParam) {
+void monitorESC(HANDLE& threadHandle) {
 	while (true) {
 		if (GetAsyncKeyState(VK_ESCAPE)) {
-			SetEvent(escEvent);
+			TerminateThread(threadHandle, 0);
 			ExitThread(0);
 		}
-		Sleep(100); 
+		Sleep(100);
 	}
 }
 
@@ -151,7 +143,7 @@ void menu() {
 	)" << '\n';
 
 	int menu_option = 1;
-	
+
 	while (true) {
 		system("cls");
 
@@ -165,53 +157,49 @@ void menu() {
 		}
 		else {
 			std::cout << "[1]: DLL Injection\n";
-		
+
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_INTENSITY);
 			std::cout << "[2]: Memory Viewing & Modification\n";
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		}
-	
+
 		// handle keyboard events
 		while (true) {
-			if (GetAsyncKeyState(VK_UP)) {
+			if (GetAsyncKeyState(VK_UP) < 0) {
 				// up key pressed
 				menu_option = menu_option == 1 ? 2 : menu_option - 1;
+				while (GetAsyncKeyState(VK_UP) < 0) {
+					Sleep(100);
+				}
 				break;
 			}
-			if (GetAsyncKeyState(VK_DOWN)) {
+			if (GetAsyncKeyState(VK_DOWN) < 0) {
 				// down key pressed
 				menu_option = menu_option == 2 ? 1 : menu_option + 1;
+				while (GetAsyncKeyState(VK_DOWN) < 0) {
+					Sleep(100);
+				}
 				break;
 			}
-			if (GetAsyncKeyState(VK_RETURN)) {
+			if (GetAsyncKeyState(VK_RETURN) < 0) {
 				// enter key pressed, call appropriate functions
 				switch (menu_option) {
-					case 1:
-						if (menuThread[0] != NULL) {
-							CloseHandle(menuThread[0]);
-						}
-						
-						menuThread[0] = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)injectProcess, NULL, 0, NULL);
-						WaitForSingleObject(menuThread[0], INFINITE);
-						CloseHandle(menuThread[0]);
-						menuThread[0] = NULL;
-						
-						break;
-					
-					case 2:
-						if (menuThread[1] != NULL) {
-							CloseHandle(menuThread[1]);
-						}
-						
-						menuThread[1] = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)modifyProcess, NULL, 0, NULL);
-						
-						WaitForSingleObject(menuThread[1], INFINITE);
-						CloseHandle(menuThread[1]);
-						menuThread[1] = NULL;
-						
-						break;
-					}
+
+				case 1:
+					// DLL injection and memory viewing
+					menuThread[0] = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)injectProcess, NULL, 0, NULL);
+					WaitForSingleObject(menuThread[0], INFINITE);
+					CloseHandle(menuThread[0]);
 					break;
+
+				case 2:
+					// Memory reading and writing
+					menuThread[1] = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)modifyProcess, NULL, 0, NULL);
+					WaitForSingleObject(menuThread[1], INFINITE);
+					CloseHandle(menuThread[1]);
+					break;
+				}
+				break;
 			}
 
 			Sleep(100);
@@ -222,7 +210,7 @@ void menu() {
 
 int main()
 {
-    // display menu
+    // display menu & entry point
     menu();
     return 0;
 }
