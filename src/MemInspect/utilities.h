@@ -8,8 +8,15 @@
 #include <TlHelp32.h>
 #include <memoryapi.h>
 
+// process's information
+typedef struct process_info {
+	std::string name;
+	DWORD pid;
+} process_info;
+
+
 // Returns a list of processes
-std::vector<std::string> getProcesses();
+std::vector<process_info> getProcesses();
 
 // Get the process ID from the process name
 DWORD getProcessId(const std::string& processName);

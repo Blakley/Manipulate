@@ -8,9 +8,8 @@
  * @return : Returns a vector of the processes
  * --------------------------------------------------
 */
-std::vector<std::string> getProcesses() {
-    std::vector<std::string> processList;
-
+std::vector<process_info> getProcesses() {
+    std::vector<process_info> processList;
 
 	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	
@@ -21,10 +20,18 @@ std::vector<std::string> getProcesses() {
 		
 		if (Process32First(hSnap, &pe32)) {
 			do {
+				// get process name
 				char buffer[1024];
 				size_t bufferSize = 1024;
 				wcstombs_s(&bufferSize, buffer, 1024, pe32.szExeFile, _TRUNCATE);
-				processList.push_back(std::string(buffer));
+				
+				// store process information
+				process_info _info;
+				_info.name = std::string(buffer);
+				_info.pid = pe32.th32ProcessID;
+
+				processList.push_back(_info);
+
 			} while (Process32Next(hSnap, &pe32));
 		}
 

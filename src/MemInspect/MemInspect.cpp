@@ -41,6 +41,11 @@ void monitorESC(HANDLE& threadHandle) {
 */
 void menu_navigation(std::string title, std::string name, std::vector<std::string> selections) {
 	
+	// processes
+	bool show_list = false;
+	std::vector<process_info> process_list;
+
+
 	int menu_option = 1;
 	int count = selections.size();
 
@@ -49,7 +54,7 @@ void menu_navigation(std::string title, std::string name, std::vector<std::strin
 
 	while (true) {
 		// menu display section 
-		// (probably shouldn't use a goto statement even though I love them?)
+		// (probably shouldn't use a goto statement)
 		menu_display: 
 			system("cls");
 
@@ -115,9 +120,21 @@ void menu_navigation(std::string title, std::string name, std::vector<std::strin
 				}
 				if (name == "injection") {
 					// handle selected option
-					if (menu_option == 1) {
-						std::cout << "Output running processes list\n";
-						// std::vector<std::string> processList = getProcesses();
+					if (menu_option == 1 && show_list) {
+						system("cls");
+
+						process_list = getProcesses();
+						for (int i = 0; i < process_list.size(); i++)
+							std::cout << "[" << i+1 << "]: Process Name: " << process_list[i].name << ", Process PID: " << process_list[i].pid << "\n";
+
+						std::cout << "\nPressed backspace to return to the menu";
+						
+						// view the information until esc is pressed
+						while (true) {
+							if (GetAsyncKeyState(VK_BACK) < 0) 
+								break;
+							Sleep(100);
+						}
 					}
 					else if (menu_option == 2) {
 						std::cout << "Inject DLL into a process\n";
@@ -140,6 +157,10 @@ void menu_navigation(std::string title, std::string name, std::vector<std::strin
 
 				break;
 			}
+
+			// set the flag for showing processes
+			if (!show_list)
+				show_list = true; 
 
 			Sleep(100);
 		}
