@@ -2,6 +2,7 @@
 #define UTILITIES_H
 
 #include <string>
+#include <locale>
 #include <vector>
 
 #include <Windows.h>
@@ -14,15 +15,14 @@ typedef struct process_info {
 	DWORD pid;
 } process_info;
 
+// Returns the path of a DLL
+std::string open_file_dialog();
 
 // Returns a list of processes
 std::vector<process_info> getProcesses();
 
-// Get the process ID from the process name
-DWORD getProcessId(const std::string& processName);
-
 // Inject a DLL into a process
-bool injectDll(DWORD processId, const std::string& dllPath);
+bool injectDll(DWORD process, std::string dll);
 
 // Monitor modified memory values
 void monitorMemoryValues(DWORD processId, HMODULE hModule);

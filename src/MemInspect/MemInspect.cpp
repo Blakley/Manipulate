@@ -41,8 +41,16 @@ void monitorESC(HANDLE& threadHandle) {
 */
 void menu_navigation(std::string title, std::string name, std::vector<std::string> selections) {
 	
-	// processes
+	// if the process list showed be displayed 
 	bool show_list = false;
+
+	// if the user has selected a process and dll
+	bool selected_pid = false;
+	
+	// selected process from the list
+	std::string selected_process = "";
+	
+	// list of process names from the snapshot
 	std::vector<process_info> process_list;
 
 
@@ -127,9 +135,9 @@ void menu_navigation(std::string title, std::string name, std::vector<std::strin
 						for (int i = 0; i < process_list.size(); i++)
 							std::cout << "[" << i+1 << "]: Process Name: " << process_list[i].name << ", Process PID: " << process_list[i].pid << "\n";
 
-						std::cout << "\nPressed backspace to return to the menu";
-						
 						// view the information until esc is pressed
+						std::cout << "\nPress backspace to return to the menu";
+
 						while (true) {
 							if (GetAsyncKeyState(VK_BACK) < 0) 
 								break;
@@ -137,13 +145,69 @@ void menu_navigation(std::string title, std::string name, std::vector<std::strin
 						}
 					}
 					else if (menu_option == 2) {
-						std::cout << "Inject DLL into a process\n";
+						system("cls");
+
+						int _pid;
+						std::cin >> _pid;
+						system("cls");
+
+						std::cout << "Enter the process ID: ";
+						std::cin >> _pid;
+
+						std::cout << "Now press the up arrow to select a DLL to inject into the process\n";
+						while (true) {
+							if (GetAsyncKeyState(VK_UP) < 0)
+								break;
+							Sleep(100);
+						}
+				
+						// find the process name from the PID
+						std::string process_name = "";
+						for (const auto& proc : process_list) {
+							if (proc.pid == _pid) {
+								process_name = proc.name;
+								break;
+							}
+						}
+
+						// open file dialog to select DLL
+						std::string success_status = "";
+						std::string dll_path = open_file_dialog();
+
+						if (dll_path.empty())
+							success_status = "No DLL selected. Press backspace to return to the menu.\n";
+						
+						// inject DLL to target PID
+						bool _status = injectDll(_pid, dll_path);
+						if (_status)
+							success_status = "Successfully injected DLL [" + dll_path + "] into the process [" + process_name + "]\n";
+						else
+							success_status = "Failure, unable to inject the DLL [" + dll_path + "] into the process [" + process_name + "]\n";
+
+						// view the information until esc is pressed
+						std::cout << success_status;
+						std::cout << "\nPress backspace to return to the menu";
+						
+						while (true) {
+							if (GetAsyncKeyState(VK_BACK) < 0)
+								break;
+							Sleep(100);
+						}
 					}
 					else {
-						std::cout << "Monitor modified memory value\n";
+						std::cout << "Continuously monitor modified memory value\n";
+						// [Address] : [Data Type] : [Previous Value] : [New Value] 
 					}
 				}
 				if (name == "modification") {
+					/*
+					    TODO:
+						ReadProcessMemory() and WriteProcessMemory()
+
+						show input dialog, if reading (enter the address you want to see the value of)
+						if writing, enter the address you want to write to and its new value (then display changes)
+					*/
+
 					// handle selected option
 					if (menu_option == 1) {
 						// Read the value of an addresses in the processes memory 
@@ -308,13 +372,6 @@ int main()
  * ======================
  *
  * Tool that does the following:
- *		1. Injects DDLs into a target process (dropdown menu) that monitors
- *		the modified memory values based on a datatype: int, string, float, etc.
- *
- *		   Prints values in the format given
- *			[Type] : [Previous Value] : [New Value] : [Address]
- *
- *
+ *		1. Injects DDLs into a target process and monitors the modified memory values based on a datatype: int, string, float, etc.
  *		2. Allows you to read and write to specific addresses in the processes memory
- *		 - Uses ReadProcessMemory() and WriteProcessMemory() functions
  * */

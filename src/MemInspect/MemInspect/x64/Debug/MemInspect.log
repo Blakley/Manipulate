@@ -1,3 +1,3 @@
 ﻿  MemInspect.cpp
-C:\Users\Blakley\Desktop\MemInspector\src\MemInspect\MemInspect.cpp(50,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Blakley\Desktop\MemInspector\src\MemInspect\MemInspect.cpp(58,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   MemInspect.vcxproj -> C:\Users\Blakley\Desktop\MemInspector\src\MemInspect\x64\Debug\MemInspect.exe
