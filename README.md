@@ -12,7 +12,7 @@ MemInspector is a command-line tool that allows you to monitor and modify the me
 </br>
 <b>2: Monitoring of process memory and API calls</b>
 
-![Alt text](src/MemInspect/assets/menu_.png)
+![Alt text](src/MemInspect/assets/menu_c.png)
 ![Alt text](src/MemInspect/assets/menu_e.png)
 
 <b>Reading and writing to process memory using custom commands</b>
