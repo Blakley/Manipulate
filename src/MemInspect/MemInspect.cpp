@@ -195,8 +195,25 @@ void menu_navigation(std::string title, std::string name, std::vector<std::strin
 						}
 					}
 					else {
-						std::cout << "Continuously monitor modified memory value\n";
-						// [Address] : [Data Type] : [Previous Value] : [New Value] 
+						system("cls");
+
+						int _pid;
+						std::cin >> _pid;
+						system("cls");
+
+						std::cout << "Enter the process ID: ";
+						std::cin >> _pid;
+
+						// find the process name from the PID
+						std::string process_name = "";
+						for (const auto& proc : process_list) {
+							if (proc.pid == _pid) {
+								process_name = proc.name;
+								break;
+							}
+						}
+
+						monitorMemoryValues(_pid, process_name);
 					}
 				}
 				if (name == "modification") {

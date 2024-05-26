@@ -1,6 +1,7 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
+#include <map>
 #include <string>
 #include <locale>
 #include <vector>
@@ -8,6 +9,7 @@
 #include <Windows.h>
 #include <TlHelp32.h>
 #include <memoryapi.h>
+#include <iostream>
 
 // process's information
 typedef struct process_info {
@@ -25,6 +27,6 @@ std::vector<process_info> getProcesses();
 bool injectDll(DWORD process, std::string dll);
 
 // Monitor modified memory values
-void monitorMemoryValues(DWORD processId, HMODULE hModule);
+void monitorMemoryValues(DWORD processId, std::string name);
 
 #endif 

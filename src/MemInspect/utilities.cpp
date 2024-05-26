@@ -115,10 +115,9 @@ bool injectDll(DWORD process, std::string dll) {
  * --------------------------------------------------
  * Monitors modified memory values in the process
  * 
- * @param process : 
- * @param hModule :
+ * @param process : PID for the process
  * --------------------------------------------------
 */
-void monitorMemoryValues(DWORD process, HMODULE hModule) {
-   // 
+void monitorMemoryValues(DWORD process, std::string name) {
+   
 }

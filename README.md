@@ -1,9 +1,23 @@
 # MemInspector
 
-A template for accessing and changing address values stored in windows applications.
-Uses the windows memoryapi to read and write to processes.
+MemInspector is a command-line tool that allows you to monitor and modify the memory of a target process. You can also inject a custom DLL into the target process, providing real-time monitoring of its memory modifications. Additionally, you can enter commands to read and write to the process's memory, giving you more control over a particular value in memory.
 
-## Getting Started
+<u>Note</u>: MemInspector is currently in development. The program is not yet fully tested and may contain bugs or stability issues.
 
-Simply find the base address of all the values you wish to read and write to.
-Start by replacing the process name and associated addresses with yours.
+![Alt text](src/MemInspect/assets/menu_a.png)
+
+## Features
+
+1. <b>Injects a custom DLL into a target process to monitor its memory</b>
+
+![Alt text](src/MemInspect/assets/menu_c.png)
+![Alt text](src/MemInspect/assets/menu_e.png)
+
+2. <b>Reading and writing to process memory using custom commands</b>
+   ![Alt text](src/MemInspect/assets/menu_b.png)
+
+3. <b>Monitoring of process memory and API calls</b>
+
+## Usage
+
+To use MemInspector, simply run the `meminspector.exe` file and use the number keys to navigate the menus.

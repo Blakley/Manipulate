@@ -1,3 +1,6 @@
 ﻿  MemInspect.cpp
 C:\Users\Blakley\Desktop\MemInspector\src\MemInspect\MemInspect.cpp(58,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  utilities.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(4672,18): warning C4244: '=': conversion from 'wchar_t' to 'char', possible loss of data
+  Generating Code...
   MemInspect.vcxproj -> C:\Users\Blakley\Desktop\MemInspector\src\MemInspect\x64\Debug\MemInspect.exe
