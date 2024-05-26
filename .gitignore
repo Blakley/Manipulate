@@ -31,11 +31,5 @@
 *.out
 *.app
 
-# Ignore the x64/Debug folder
-x64/Debug/
-
-# Ignore the MemInspect/x64/Debug folder
-MemInspect/x64/Debug/
-
-# Ignore the .vs/MemInspect folder
-.vs/MemInspect/
+# Ignore ./vs directory
+.vs/
