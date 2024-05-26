@@ -8,15 +8,15 @@ MemInspector is a command-line tool that allows you to monitor and modify the me
 
 ## Features
 
-1. <b>Injects a custom DLL into a target process to monitor its memory</b>
+<b>1: Injects a custom DLL into a target process to monitor its memory</b>
+</br>
+<b>2: Monitoring of process memory and API calls</b>
 
-![Alt text](src/MemInspect/assets/menu_c.png)
+![Alt text](src/MemInspect/assets/menu_.png)
 ![Alt text](src/MemInspect/assets/menu_e.png)
 
-2. <b>Reading and writing to process memory using custom commands</b>
-   ![Alt text](src/MemInspect/assets/menu_b.png)
-
-3. <b>Monitoring of process memory and API calls</b>
+<b>Reading and writing to process memory using custom commands</b>
+![Alt text](src/MemInspect/assets/menu_b.png)
 
 ## Usage
 
